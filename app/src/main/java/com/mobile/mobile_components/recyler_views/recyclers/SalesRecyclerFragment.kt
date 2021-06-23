@@ -16,18 +16,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobile.mobile_components.R
 import com.mobile.mobile_components.data.DBHelper
 import com.mobile.mobile_components.fragments.CourseFragment
-import com.mobile.mobile_components.model.Course
+import com.mobile.mobile_components.model.Sale
 import com.mobile.mobile_components.model.CurrentData
-import com.mobile.mobile_components.recyler_views.adapters.CoursesAdapter
+import com.mobile.mobile_components.recyler_views.adapters.SalesAdapter
 
 private const val FILTER_TYPE = "filter_type"
 
 class CoursesRecyclerFragment : Fragment() {
 
     private var filter: Int? = null
-    private lateinit var adapter: CoursesAdapter
+    private lateinit var adapter: SalesAdapter
     private var db : DBHelper? = null
-    private lateinit var list : ArrayList<Course>
+    private lateinit var list : ArrayList<Sale>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,7 @@ class CoursesRecyclerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_courses_recycler, container, false)
+        val view = inflater.inflate(R.layout.fragment_sales_recycler, container, false)
         btnAddCourse(view)
         initRecycler(view)
         return view
@@ -51,7 +51,7 @@ class CoursesRecyclerFragment : Fragment() {
             view.findViewById<Button>(R.id.add_course).visibility = View.INVISIBLE
         else
             view.findViewById<Button>(R.id.add_course).setOnClickListener {
-                changeFrag(null)
+                //changeFrag(null)
             }
     }
 
@@ -59,12 +59,18 @@ class CoursesRecyclerFragment : Fragment() {
         val recycler = view.findViewById<RecyclerView>(R.id.recycler_courses)
         recycler.layoutManager = LinearLayoutManager(activity)
         db = context?.let { DBHelper(it) }
-        when(filter){
+      /*  when(filter){
             1 -> list = db!!.getAllCourses()
             2 -> list = db!!.getCoursesByStudent(CurrentData.getCurrentUser()!!.id)
             3 -> list = db!!.getNotCoursesByStudent(CurrentData.getCurrentUser()!!.id)
-        }
-        adapter = CoursesAdapter(list)
+        }*/
+        list = ArrayList();
+        list.add(Sale(1,"Papitas","Estan Ricas", 3.00, 123.0, 12.0, 82811234 ))
+        list.add(Sale(2,"Papita","Estan Ricas", 3.00, 123.0, 12.0, 82811234 ))
+        list.add(Sale(3,"Papit","Estan Ricas", 3.00, 123.0, 12.0, 82811234 ))
+        list.add(Sale(4,"Papi","Estan Ricas", 3.00, 123.0, 12.0, 82811234 ))
+        list.add(Sale(5,"Pap","Estan Ricas", 3.00, 123.0, 12.0, 82811234 ))
+        adapter = SalesAdapter(list)
         recycler.adapter = adapter
 
         val search = view.findViewById<EditText>(R.id.search_courses)
@@ -87,7 +93,7 @@ class CoursesRecyclerFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 when(direction){
                     ItemTouchHelper.RIGHT -> showDialog(viewHolder)
-                    ItemTouchHelper.LEFT -> goToUpdate(viewHolder)
+                    //ItemTouchHelper.LEFT -> goToUpdate(viewHolder)
                 }
             }
         }
@@ -97,18 +103,18 @@ class CoursesRecyclerFragment : Fragment() {
 
     private fun goToUpdate(viewHolder: RecyclerView.ViewHolder){
         if(filter==1)
-            changeFrag(list[viewHolder.adapterPosition])
+            //changeFrag(list[viewHolder.adapterPosition])
         adapter.notifyItemChanged(viewHolder.adapterPosition)
     }
-
-    private fun changeFrag(course: Course?){
+/*
+    private fun changeFrag(course: Sale?){
         val fragment: Fragment = CourseFragment.newInstance(course)
         val transaction = activity?.supportFragmentManager!!.beginTransaction()
         transaction.hide(this)
         transaction.add(R.id.fragment_container, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
-    }
+    }*/
 
     private fun showDialog(viewHolder: RecyclerView.ViewHolder){
         val builder = AlertDialog.Builder(activity)
@@ -131,11 +137,11 @@ class CoursesRecyclerFragment : Fragment() {
         builder.setMessage(msg)
         builder.setPositiveButton("Confirmar"){ _, _ ->
             val position = viewHolder.adapterPosition
-            when(filter){
+           /* when(filter){
                 1 -> db!!.deleteCourse(list[position].id)
                 2 -> db!!.unregisterCourse(CurrentData.getCurrentUser()!!.id, list[position].id)
                 3 -> db!!.registerCourse(CurrentData.getCurrentUser()!!.id, list[position].id)
-            }
+            }*/
             list.removeAt(position)
             adapter.notifyItemRemoved(position)
         }
@@ -146,9 +152,9 @@ class CoursesRecyclerFragment : Fragment() {
     }
 
     private fun filter(string: String){
-        val filtered = ArrayList<Course>()
+        val filtered = ArrayList<Sale>()
         list.forEach{
-            if (it.id.lowercase().contains(string.lowercase())){
+            if (it.id.toString().lowercase().contains(string.lowercase())){
                 filtered.add(it)
             }
         }
