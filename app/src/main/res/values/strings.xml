@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">Venta de Garage</string>
+    <string name="app_name">Venta de Garage JK</string>
     <string name="ingresar">Ingresar</string>
     <string name="registrarse">Registrarse</string>
     <string name="login">Login</string>
     <string name="usuario">Usuario</string>
+    <string name="password">Password</string>
     <string name="matriculate">Matricular</string>
     <string name="my_courses">Mis Cursos</string>
     <string name="add_course">Agregar Curso</string>
