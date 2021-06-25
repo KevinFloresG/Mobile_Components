@@ -18,10 +18,10 @@
         android:textSize="22sp"
         app:layout_constraintBottom_toTopOf="@+id/lUsername"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.629"
+        app:layout_constraintHorizontal_bias="0.532"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.641" />
+        app:layout_constraintVertical_bias="0.634" />
 
     <EditText
         android:id="@+id/lUsername"
@@ -73,7 +73,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.887" />
+        app:layout_constraintVertical_bias="0.926" />
 
     <Button
         android:id="@+id/loginBtn"
@@ -84,10 +84,10 @@
         android:text="@string/ingresar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.87"
+        app:layout_constraintHorizontal_bias="0.634"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.886" />
+        app:layout_constraintVertical_bias="0.91" />
 
     <Button
         android:id="@+id/signInBtn"
@@ -98,20 +98,22 @@
         android:text="@string/registrarse"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.121"
+        app:layout_constraintHorizontal_bias="0.356"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.886" />
+        app:layout_constraintVertical_bias="0.91" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="238dp"
-        android:layout_height="232dp"
+        android:layout_width="219dp"
+        android:layout_height="210dp"
+        android:foregroundGravity="clip_horizontal"
         app:layout_constraintBottom_toTopOf="@+id/projectName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.569"
         app:srcCompat="@mipmap/ic_garage_sale_foreground" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
