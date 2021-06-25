@@ -19,6 +19,18 @@ object CurrentData {
         return salesList;
     }
 
+    init{
+        usersList.add(User("java@gmail.com","123","Javier",
+            "Amador Delgado","60804290"))
+
+        usersList.add(User("kevin@gmail.com","321","Kevin",
+            "Flores García","86821333"))
+
+        usersList.add(User("alberto@gmail.com","alb123","Alberto",
+            "Amador Delgado","22896386"))
+
+    }
+
     fun getCurrentUser() : User? {
         return currentUser
     }
