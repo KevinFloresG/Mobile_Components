@@ -21,6 +21,9 @@
         <activity android:name=".business_logic.MainActivity">
 
         </activity>
+        <activity android:name=".business_logic.RegistrationActivity">
+
+        </activity>
     </application>
 
 </manifest>
