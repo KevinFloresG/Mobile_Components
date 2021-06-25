@@ -1,8 +1,7 @@
 package com.mobile.mobile_components.business_logic
 
-import android.annotation.SuppressLint
+
 import android.content.Intent
-import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -13,6 +12,7 @@ import com.google.android.material.navigation.NavigationView
 import com.mobile.mobile_components.R
 import com.mobile.mobile_components.databinding.ActivityMainBinding
 import com.mobile.mobile_components.databinding.NavigationDrawerHeaderBinding
+import com.mobile.mobile_components.fragments.AboutFragment
 import com.mobile.mobile_components.fragments.SaleRegistrationFragment
 import com.mobile.mobile_components.model.CurrentData
 import com.mobile.mobile_components.model.User
@@ -58,6 +58,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.register_sale->{
                 changeFragment("Registrar venta",SaleRegistrationFragment())
+            }
+            R.id.about->{
+                changeFragment("Acerca de",AboutFragment())
             }
             R.id.logOut -> logOut()
             else -> return false
