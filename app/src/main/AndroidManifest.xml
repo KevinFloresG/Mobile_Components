@@ -10,14 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Courses_Students.NoActionBar">
         <activity android:name=".business_logic.LoginActivity">
+
+        </activity>
+        <activity android:name=".business_logic.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".business_logic.MainActivity">
-
         </activity>
     </application>
 

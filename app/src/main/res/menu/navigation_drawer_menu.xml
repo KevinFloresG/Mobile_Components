@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/matriculate_curse"
-        android:title="@string/matriculate" />
-    <item
-        android:id="@+id/my_courses"
-        android:title="@string/my_courses" />
-    <item
-        android:id="@+id/students"
-        android:title="@string/students" />
+        android:id="@+id/garage_sales"
+        android:title="@string/ventas_de_garage" />
     <item
         android:id="@+id/logOut"
         android:title="@string/log_out" />

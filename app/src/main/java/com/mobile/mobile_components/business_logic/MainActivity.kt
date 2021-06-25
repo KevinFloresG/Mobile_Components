@@ -15,7 +15,7 @@ import com.mobile.mobile_components.databinding.ActivityMainBinding
 import com.mobile.mobile_components.databinding.NavigationDrawerHeaderBinding
 import com.mobile.mobile_components.model.CurrentData
 import com.mobile.mobile_components.model.User
-import com.mobile.mobile_components.recyler_views.recyclers.CoursesRecyclerFragment
+import com.mobile.mobile_components.recyler_views.recyclers.SalesRecyclerFragment
 import com.mobile.mobile_components.recyler_views.recyclers.StudentsRecyclerFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -28,16 +28,17 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        user = CurrentData.getCurrentUser()!!
+        //user = CurrentData.getCurrentUser()!!
         binding = ActivityMainBinding.inflate(layoutInflater)
         bindingNav = NavigationDrawerHeaderBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        /*
         val userTxt = "${user.name} ${user.lastname} \n" +
                 "${user.email}\n"
         val headerView: View  = binding.navMenu.getHeaderView(0)
         val loggedUserTextView = headerView.findViewById(R.id.loggedUserLabel) as TextView
         loggedUserTextView.text = userTxt
-
+        */
         setSupportActionBar(binding.content.toolbar)
         val toggle = ActionBarDrawerToggle(this,
             binding.drawerLayout , binding.content.toolbar,
@@ -48,32 +49,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val menu = binding.navMenu.menu
         binding.navMenu.setNavigationItemSelectedListener(this)
-        if(user.email == "admin"){
-            menu.findItem(R.id.matriculate_curse).isVisible = false
-            menu.findItem(R.id.my_courses).title = "Cursos"
-            changeFragment("Todos los Cursos", CoursesRecyclerFragment.newInstance(1))
-        }else{
-            menu.findItem(R.id.students).isVisible = false
-            changeFragment("Mis Cursos Matriculados", CoursesRecyclerFragment.newInstance(2))
-        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         binding.drawerLayout.closeDrawer(GravityCompat.START)
         when(item.itemId){
-            R.id.matriculate_curse ->{
-                changeFragment("Matricular Cursos", CoursesRecyclerFragment.newInstance(3))
+            R.id.garage_sales->{
+                changeFragment("Ventas de Garage", SalesRecyclerFragment())
             }
-            R.id.my_courses ->{
-                var t = "Mis Cursos Matriculados"
-                var f = 2
-                /*if(CurrentData.getCurrentUser()?.id == "admin"){
-                    t = "Todos los Cursos"
-                    f = 1
-                }*/
-                changeFragment(t, CoursesRecyclerFragment.newInstance(f))
-            }
-            R.id.students -> changeFragment("Estudiantes", StudentsRecyclerFragment())
             R.id.logOut -> logOut()
             else -> return false
         }

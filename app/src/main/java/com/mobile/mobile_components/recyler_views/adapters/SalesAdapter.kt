@@ -21,10 +21,11 @@ class SalesAdapter(
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val l = list[position]
-        holder.id.text = l.id.toString()
-        holder.description.text = "Descripción: ${l.desc}"
-        holder.price.text = "Créditos: ${l.price}"
+        val sale = list[position]
+        holder.product.text = sale.product
+        holder.description.text = "Descripción: ${sale.desc}"
+        holder.price.text = "Precio: ${sale.price}"
+        holder.phone.text = "Contacto: ${sale.phone}"
     }
 
     override fun getItemCount(): Int {
@@ -37,8 +38,9 @@ class SalesAdapter(
     }
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view){
-        val id : TextView = view.findViewById(R.id.class_id)
-        val description : TextView = view.findViewById(R.id.class_description)
-        val price : TextView = view.findViewById(R.id.class_credits)
+        val product : TextView = view.findViewById(R.id.product)
+        val description : TextView = view.findViewById(R.id.description)
+        val price : TextView = view.findViewById(R.id.price)
+        val phone : TextView = view.findViewById(R.id.phone)
     }
 }

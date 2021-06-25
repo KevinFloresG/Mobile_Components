@@ -17,4 +17,6 @@
     <string name="students">Estudiantes</string>
     <string name="sign_in">Sign In</string>
     <string name="tel_fono">Teléfono:</string>
+    <string name="products">Productos</string>
+    <string name="ventas_de_garage">Ventas de Garage</string>
 </resources>
