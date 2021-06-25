@@ -4,6 +4,9 @@
         android:id="@+id/garage_sales"
         android:title="@string/ventas_de_garage" />
     <item
+        android:id="@+id/register_sale"
+        android:title="Registrar Venta" />
+    <item
         android:id="@+id/logOut"
         android:title="@string/log_out" />
 </menu>

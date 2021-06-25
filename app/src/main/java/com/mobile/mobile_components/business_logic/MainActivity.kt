@@ -13,6 +13,7 @@ import com.google.android.material.navigation.NavigationView
 import com.mobile.mobile_components.R
 import com.mobile.mobile_components.databinding.ActivityMainBinding
 import com.mobile.mobile_components.databinding.NavigationDrawerHeaderBinding
+import com.mobile.mobile_components.fragments.SaleRegistrationFragment
 import com.mobile.mobile_components.model.CurrentData
 import com.mobile.mobile_components.model.User
 import com.mobile.mobile_components.recyler_views.recyclers.SalesRecyclerFragment
@@ -54,6 +55,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when(item.itemId){
             R.id.garage_sales->{
                 changeFragment("Ventas de Garage", SalesRecyclerFragment())
+            }
+            R.id.register_sale->{
+                changeFragment("Registrar venta",SaleRegistrationFragment())
             }
             R.id.logOut -> logOut()
             else -> return false
