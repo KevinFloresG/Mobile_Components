@@ -35,19 +35,30 @@ class LoginActivity : AppCompatActivity() {
                 )
             )
         })
+
+        val bundle = intent.extras
+        val msg = bundle?.getString("msg")
+        // Show message if this activity was started by another. For example if a user was registered without problems or
+        // if the user logs out.
+        if (msg != null) {
+            Toast.makeText(this, "$msg", Toast.LENGTH_LONG).show()
+        }
     }
 
 
 
     private fun executeLogin(){
         val username = binding.lUsername.text.toString()
-        if(username.isBlank()){
-            Toast.makeText(this, "Indique un Usuario", Toast.LENGTH_SHORT).show()
+        val password = binding.lPassword.text.toString()
+
+        if(username.isBlank() || password.isBlank()){
+            Toast.makeText(this, "Uno de los campos esta vacío.", Toast.LENGTH_SHORT).show()
             return
         }
-        val user = null //= db?.getStudentById(username.trim())
+
+        val user = CurrentData.login(username,password)
         if(user == null){
-            Toast.makeText(this, "Usuario no Registrado", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "El correo, la clave o ambos son incorrectos.", Toast.LENGTH_SHORT).show()
             return
         }
         CurrentData.setCurrentUser(user)

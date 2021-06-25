@@ -34,7 +34,7 @@
         app:layout_constraintVertical_bias="0.268" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnRegister"
         android:layout_width="121dp"
         android:layout_height="48dp"
         android:backgroundTint="#2B289C"
@@ -46,7 +46,7 @@
         app:layout_constraintVertical_bias="0.909" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/rName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -103,7 +103,7 @@
         app:layout_constraintVertical_bias="0.653" />
 
     <EditText
-        android:id="@+id/editTextPhone"
+        android:id="@+id/rPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -117,7 +117,7 @@
         app:layout_constraintVertical_bias="0.623" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
+        android:id="@+id/rLastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -131,7 +131,7 @@
         app:layout_constraintVertical_bias="0.548" />
 
     <EditText
-        android:id="@+id/editTextTextPassword"
+        android:id="@+id/rPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -152,14 +152,14 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/editTextTextPassword"
+        app:layout_constraintEnd_toStartOf="@+id/rPassword"
         app:layout_constraintHorizontal_bias="0.826"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.696" />
 
     <EditText
-        android:id="@+id/editTextTextPassword2"
+        android:id="@+id/rPassword2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -187,7 +187,7 @@
         app:layout_constraintVertical_bias="0.4" />
 
     <EditText
-        android:id="@+id/editTextTextEmailAddress"
+        android:id="@+id/rEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
