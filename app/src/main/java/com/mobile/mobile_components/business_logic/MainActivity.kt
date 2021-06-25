@@ -11,30 +11,29 @@ import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.mobile.mobile_components.R
-import com.mobile.mobile_components.data.DBHelper
 import com.mobile.mobile_components.databinding.ActivityMainBinding
 import com.mobile.mobile_components.databinding.NavigationDrawerHeaderBinding
 import com.mobile.mobile_components.model.CurrentData
-import com.mobile.mobile_components.model.Student
+import com.mobile.mobile_components.model.User
 import com.mobile.mobile_components.recyler_views.recyclers.CoursesRecyclerFragment
 import com.mobile.mobile_components.recyler_views.recyclers.StudentsRecyclerFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private var db : DBHelper? = null
+
     private lateinit var binding : ActivityMainBinding
     private lateinit var bindingNav : NavigationDrawerHeaderBinding
-    private lateinit var user : Student
+    private lateinit var user : User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        db = DBHelper(this)
+
         user = CurrentData.getCurrentUser()!!
         binding = ActivityMainBinding.inflate(layoutInflater)
         bindingNav = NavigationDrawerHeaderBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val userTxt = "${user.name} ${user.lastname1} ${user.lastname2}\n" +
-                "${user.id}\nEdad: ${user.age}"
+        val userTxt = "${user.name} ${user.lastname} \n" +
+                "${user.email}\n"
         val headerView: View  = binding.navMenu.getHeaderView(0)
         val loggedUserTextView = headerView.findViewById(R.id.loggedUserLabel) as TextView
         loggedUserTextView.text = userTxt
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         val menu = binding.navMenu.menu
         binding.navMenu.setNavigationItemSelectedListener(this)
-        if(user.id == "admin"){
+        if(user.email == "admin"){
             menu.findItem(R.id.matriculate_curse).isVisible = false
             menu.findItem(R.id.my_courses).title = "Cursos"
             changeFragment("Todos los Cursos", CoursesRecyclerFragment.newInstance(1))
@@ -68,10 +67,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.my_courses ->{
                 var t = "Mis Cursos Matriculados"
                 var f = 2
-                if(CurrentData.getCurrentUser()?.id == "admin"){
+                /*if(CurrentData.getCurrentUser()?.id == "admin"){
                     t = "Todos los Cursos"
                     f = 1
-                }
+                }*/
                 changeFragment(t, CoursesRecyclerFragment.newInstance(f))
             }
             R.id.students -> changeFragment("Estudiantes", StudentsRecyclerFragment())

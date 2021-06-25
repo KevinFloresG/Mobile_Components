@@ -15,4 +15,6 @@
     <string name="add_student">Agregar Estudiante</string>
     <string name="b_squeda">Búsqueda</string>
     <string name="students">Estudiantes</string>
+    <string name="sign_in">Sign In</string>
+    <string name="tel_fono">Teléfono:</string>
 </resources>

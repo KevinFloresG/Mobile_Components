@@ -14,16 +14,14 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.mobile_components.R
-import com.mobile.mobile_components.data.DBHelper
 import com.mobile.mobile_components.fragments.StudentFragment
-import com.mobile.mobile_components.model.Student
+import com.mobile.mobile_components.model.User
 import com.mobile.mobile_components.recyler_views.adapters.StudentAdapter
 
 class StudentsRecyclerFragment : Fragment() {
 
     private lateinit var adapter: StudentAdapter
-    private var db : DBHelper? = null
-    private lateinit var list : ArrayList<Student>
+    private lateinit var list : ArrayList<User>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,8 +45,7 @@ class StudentsRecyclerFragment : Fragment() {
     private fun initRecycler(view: View){
         val recycler = view.findViewById<RecyclerView>(R.id.recycler_students)
         recycler.layoutManager = LinearLayoutManager(activity)
-        db = context?.let { DBHelper(it) }
-        list = db!!.getAllStudents()
+        //list = db!!.getAllStudents()
         adapter = StudentAdapter(list)
         recycler.adapter = adapter
 
@@ -77,13 +74,13 @@ class StudentsRecyclerFragment : Fragment() {
     }
 
     private fun filter(string: String){
-        val filtered = ArrayList<Student>()
+        val filtered = ArrayList<User>()
         var name : String
-        list.forEach{
+        list.forEach{/*
             name = "${it.name} ${it.lastname1} ${it.lastname2}"
             if (name.lowercase().contains(string.lowercase())){
                 filtered.add(it)
-            }
+            }*/
         }
         adapter.updateList(filtered)
     }
@@ -94,7 +91,7 @@ class StudentsRecyclerFragment : Fragment() {
         builder.setMessage("¿Está seguro de Eliminar este Estudiante?")
         builder.setPositiveButton("Confirmar"){ _, _ ->
             val position = viewHolder.adapterPosition
-            db!!.deleteStudent(list[position].id)
+            /*db!!.deleteStudent(list[position].id)*/
             list.removeAt(position)
             adapter.notifyItemRemoved(position)
         }

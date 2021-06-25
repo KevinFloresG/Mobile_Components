@@ -9,14 +9,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.mobile.mobile_components.R
-import com.mobile.mobile_components.data.DBHelper
-import com.mobile.mobile_components.model.Student
+
+import com.mobile.mobile_components.model.User
 import com.mobile.mobile_components.recyler_views.recyclers.StudentsRecyclerFragment
-
 class StudentFragment : Fragment() {
-
-    private var db : DBHelper? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,7 +20,6 @@ class StudentFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_student, container, false)
         view.findViewById<Button>(R.id.btn_std).setOnClickListener { addStudent(view) }
-        db = context?.let { DBHelper(it) }
         return view
     }
 
@@ -53,15 +48,15 @@ class StudentFragment : Fragment() {
         if(age.isBlank()){
             Toast.makeText(context, "Ingresa la Edad", Toast.LENGTH_SHORT).show()
             return
-        }
+        }/*
         if(db!!.getStudent(id.toString()) != null){
             Toast.makeText(context, "Id ya Existente", Toast.LENGTH_SHORT).show()
             return
         }
         else
             db!!.insertStudent(
-                Student(id.toString(), name.toString(), last1.toString(), last2.toString(), age.toString().toInt())
-            )
+                User(id.toString(), name.toString(), last1.toString(), last2.toString(), age.toString().toInt())
+            )*/
         val fragment: Fragment = StudentsRecyclerFragment()
         val transaction = activity?.supportFragmentManager!!.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)

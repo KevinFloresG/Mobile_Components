@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.mobile.mobile_components.R
-import com.mobile.mobile_components.data.DBHelper
 import com.mobile.mobile_components.model.Course
 import com.mobile.mobile_components.recyler_views.recyclers.CoursesRecyclerFragment
 
@@ -24,7 +23,6 @@ class CourseFragment : Fragment() {
     private var id : String? = null
     private var desc : String? = null
     private var credits : Int? = null
-    private var db : DBHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +38,6 @@ class CourseFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        db = context?.let { DBHelper(it) }
         val view = inflater.inflate(R.layout.fragment_course, container, false)
         if(type == 1) updateFields(view)
         view.findViewById<Button>(R.id.btn_std).setOnClickListener { doCourse(view) }
@@ -71,7 +68,7 @@ class CourseFragment : Fragment() {
         if(credits.isBlank()){
             Toast.makeText(context, "Ingresa el valor en Créditos", Toast.LENGTH_SHORT).show()
             return
-        }
+        }/*
         if(type == 0){
             if(db!!.getCourse(id.toString()) != null){
                 Toast.makeText(context, "Id ya Existente", Toast.LENGTH_SHORT).show()
@@ -80,7 +77,7 @@ class CourseFragment : Fragment() {
             db!!.addCourse(Course(id.toString(), desc.toString(), credits.toString().toInt()))
         }
         else
-            db!!.updateCourse(Course(id.toString(), desc.toString(), credits.toString().toInt()))
+            db!!.updateCourse(Course(id.toString(), desc.toString(), credits.toString().toInt()))*/
         val fragment: Fragment = CoursesRecyclerFragment.newInstance(1)
         val transaction = activity?.supportFragmentManager!!.beginTransaction()
         transaction.replace(R.id.fragment_container, fragment)

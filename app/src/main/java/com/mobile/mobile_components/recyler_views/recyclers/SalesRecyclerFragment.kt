@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mobile.mobile_components.R
-import com.mobile.mobile_components.data.DBHelper
 import com.mobile.mobile_components.fragments.CourseFragment
 import com.mobile.mobile_components.model.Sale
 import com.mobile.mobile_components.model.CurrentData
@@ -26,7 +25,7 @@ class CoursesRecyclerFragment : Fragment() {
 
     private var filter: Int? = null
     private lateinit var adapter: SalesAdapter
-    private var db : DBHelper? = null
+    //private var db : DBHelper? = null
     private lateinit var list : ArrayList<Sale>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +57,7 @@ class CoursesRecyclerFragment : Fragment() {
     private fun initRecycler(view: View){
         val recycler = view.findViewById<RecyclerView>(R.id.recycler_courses)
         recycler.layoutManager = LinearLayoutManager(activity)
-        db = context?.let { DBHelper(it) }
+        //db = context?.let { DBHelper(it) }
       /*  when(filter){
             1 -> list = db!!.getAllCourses()
             2 -> list = db!!.getCoursesByStudent(CurrentData.getCurrentUser()!!.id)
