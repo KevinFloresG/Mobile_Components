@@ -1,11 +1,11 @@
 package com.mobile.mobile_components.business_logic
 
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -16,10 +16,8 @@ import com.mobile.mobile_components.databinding.NavigationDrawerHeaderBinding
 import com.mobile.mobile_components.model.CurrentData
 import com.mobile.mobile_components.model.User
 import com.mobile.mobile_components.recyler_views.recyclers.SalesRecyclerFragment
-import com.mobile.mobile_components.recyler_views.recyclers.StudentsRecyclerFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
 
     private lateinit var binding : ActivityMainBinding
     private lateinit var bindingNav : NavigationDrawerHeaderBinding

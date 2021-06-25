@@ -1,15 +1,23 @@
 package com.mobile.mobile_components.recyler_views.recyclers
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.telephony.SmsManager
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -28,6 +36,7 @@ class SalesRecyclerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_sales_recycler, container, false)
+        ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.SEND_SMS), 1)
         initRecycler(view)
         return view
     }
@@ -37,15 +46,15 @@ class SalesRecyclerFragment : Fragment() {
         recycler.layoutManager = LinearLayoutManager(activity)
         adapter = SalesAdapter(list)
         recycler.adapter = adapter
-/*
-        val search = view.findViewById<EditText>(R.id.search_courses)
+
+        val search = view.findViewById<EditText>(R.id.search)
         search.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable?) {
                 filter(s.toString())
             }
-        })*/
+        })
 
         var itemSwipe = object : ItemTouchHelper.SimpleCallback(0,
             ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT) {
@@ -57,55 +66,94 @@ class SalesRecyclerFragment : Fragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 when(direction){
-                    ItemTouchHelper.RIGHT -> showDialog(viewHolder)
-                    //ItemTouchHelper.LEFT -> goToUpdate(viewHolder)
+                    ItemTouchHelper.RIGHT -> doCall(viewHolder)
+                    ItemTouchHelper.LEFT -> showDialog(viewHolder)
                 }
             }
         }
         var swap = ItemTouchHelper(itemSwipe)
         swap.attachToRecyclerView(recycler)
     }
-/*
-    private fun goToUpdate(viewHolder: RecyclerView.ViewHolder){
-        if(filter==1)
-            //changeFrag(list[viewHolder.adapterPosition])
-        adapter.notifyItemChanged(viewHolder.adapterPosition)
+
+    @SuppressLint("MissingSuperCall")
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == 101) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                adapter.updateList(list)
+            }
+        }
     }
 
-    private fun changeFrag(course: Sale?){
-        val fragment: Fragment = CourseFragment.newInstance(course)
-        val transaction = activity?.supportFragmentManager!!.beginTransaction()
-        transaction.hide(this)
-        transaction.add(R.id.fragment_container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }*/
+    private fun doCall(viewHolder: RecyclerView.ViewHolder){
+        adapter.notifyItemChanged(viewHolder.adapterPosition)
+        try {
+            if (Build.VERSION.SDK_INT > 22) {
+                if (ActivityCompat.checkSelfPermission(
+                        requireContext(),
+                        Manifest.permission.CALL_PHONE
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    ActivityCompat.requestPermissions(
+                        requireActivity(),
+                        arrayOf(Manifest.permission.CALL_PHONE),
+                        101
+                    )
+                    return
+                }
+            }
+            val callIntent = Intent(Intent.ACTION_CALL)
+            val phone = list[viewHolder.adapterPosition].phone.toString()
+            callIntent.data = Uri.parse("tel:${phone}")
+            startActivity(callIntent)
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+    }
+
+    private fun sendMsg(msg : String, sale : Sale){
+        try {
+            val sm = SmsManager.getDefault()
+            sm.sendTextMessage(
+                sale.phone.toString(),
+                null,
+                msg,
+                null,
+                null
+            )
+            Toast.makeText(context, "Mensaje enviado exitosamente", Toast.LENGTH_SHORT).show()
+        } catch (e: Exception) {
+            Toast.makeText(
+                context,
+                "Falló el encio del mensaje, intente de nuevo.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
 
     private fun showDialog(viewHolder: RecyclerView.ViewHolder){
-        val builder = AlertDialog.Builder(activity)
-        var title = ""; var msg = "";
-        builder.setTitle(title)
-        builder.setMessage(msg)
-        builder.setPositiveButton("Confirmar"){ _, _ ->
-            val position = viewHolder.adapterPosition
-           /* when(filter){
-                1 -> db!!.deleteCourse(list[position].id)
-                2 -> db!!.unregisterCourse(CurrentData.getCurrentUser()!!.id, list[position].id)
-                3 -> db!!.registerCourse(CurrentData.getCurrentUser()!!.id, list[position].id)
-            }*/
-            list.removeAt(position)
-            adapter.notifyItemRemoved(position)
-        }
-        builder.setNegativeButton("Cancelar"){ _, _ ->
+        val alert = AlertDialog.Builder(activity)
+        alert.setTitle("Enviar un Mensaje")
+        val input = EditText(context)
+        alert.setView(input)
+        alert.setPositiveButton("Enviar") { _, _ ->
+            val sale = list[viewHolder.adapterPosition]
+            sendMsg(input.text.toString(), sale)
             adapter.notifyItemChanged(viewHolder.adapterPosition)
         }
-        builder.show()
+        alert.setNegativeButton("Cancelar") { _, _ ->
+            adapter.notifyItemChanged(viewHolder.adapterPosition)
+        }
+        alert.show()
     }
 
     private fun filter(string: String){
         val filtered = ArrayList<Sale>()
         list.forEach{
-            if (it.id.toString().lowercase().contains(string.lowercase())){
+            if (it.product.lowercase().contains(string.lowercase())){
                 filtered.add(it)
             }
         }

@@ -13,7 +13,7 @@
         android:layout_height="62dp">
 
         <EditText
-            android:id="@+id/search_courses"
+            android:id="@+id/search"
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_margin="10dp"
