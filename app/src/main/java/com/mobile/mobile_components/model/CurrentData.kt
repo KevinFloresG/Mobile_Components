@@ -6,6 +6,7 @@ object CurrentData {
     var usersList = ArrayList<User>()
     var salesList = ArrayList<Sale>()
     private var currentUser : User? = null
+    private var saleIdSequence: Int = 0
 
     init{
         salesList.add(Sale(1,"Carro Toyota","Está como Nuevo", 800.00, 123.0, 12.0, 82811234 ))
@@ -20,6 +21,10 @@ object CurrentData {
     }
 
     init{
+
+        usersList.add(User("123","123","Javier",
+            "Amador Delgado","60804290"))
+
         usersList.add(User("java@gmail.com","123","Javier",
             "Amador Delgado","60804290"))
 
@@ -67,6 +72,14 @@ object CurrentData {
                 u.phone = user.phone
             }
         }
+    }
+
+    fun addSale(s: Sale){
+        salesList.add(s)
+    }
+
+    fun getSaleIdFromSequence(): Int{
+        return ++saleIdSequence
     }
 
 }
