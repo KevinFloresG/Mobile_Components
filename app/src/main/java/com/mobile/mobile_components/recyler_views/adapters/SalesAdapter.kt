@@ -10,7 +10,8 @@ import com.mobile.mobile_components.R
 import com.mobile.mobile_components.model.Sale
 
 class SalesAdapter(
-    private var list : List<Sale>
+    private var list : List<Sale>,
+    private val clickListener: ClickListener
     ) : RecyclerView.Adapter<SalesAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -26,6 +27,9 @@ class SalesAdapter(
         holder.description.text = "Descripción: ${sale.desc}"
         holder.price.text = "Precio: ${sale.price}"
         holder.phone.text = "Contacto: ${sale.phone}"
+        holder.itemView.setOnClickListener {
+            clickListener.onItemClick(sale)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -42,5 +46,9 @@ class SalesAdapter(
         val description : TextView = view.findViewById(R.id.description)
         val price : TextView = view.findViewById(R.id.price)
         val phone : TextView = view.findViewById(R.id.phone)
+    }
+
+    interface ClickListener{
+        fun onItemClick(sale: Sale)
     }
 }

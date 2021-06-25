@@ -26,7 +26,7 @@ import com.mobile.mobile_components.model.CurrentData
 import com.mobile.mobile_components.model.Sale
 import com.mobile.mobile_components.recyler_views.adapters.SalesAdapter
 
-class SalesRecyclerFragment : Fragment() {
+class SalesRecyclerFragment : Fragment(), SalesAdapter.ClickListener {
 
     private lateinit var adapter: SalesAdapter
     private var list = CurrentData.getSales()
@@ -44,7 +44,7 @@ class SalesRecyclerFragment : Fragment() {
     private fun initRecycler(view: View){
         val recycler = view.findViewById<RecyclerView>(R.id.recycler_courses)
         recycler.layoutManager = LinearLayoutManager(activity)
-        adapter = SalesAdapter(list)
+        adapter = SalesAdapter(list, this)
         recycler.adapter = adapter
 
         val search = view.findViewById<EditText>(R.id.search)
@@ -158,6 +158,14 @@ class SalesRecyclerFragment : Fragment() {
             }
         }
         adapter.updateList(filtered)
+    }
+
+    override fun onItemClick(sale: Sale) {
+        val alert = AlertDialog.Builder(activity)
+        alert.setTitle("Ubicación")
+        alert.setMessage("Longitud: ${sale.longitude}\nLatitude: ${sale.latitude}")
+        alert.setNegativeButton("Cancelar") { _, _ ->}
+        alert.show()
     }
 
 }
