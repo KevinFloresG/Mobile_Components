@@ -6,6 +6,11 @@
     <item
         android:id="@+id/register_sale"
         android:title="Registrar Venta" />
+
+    <item
+        android:id="@+id/about"
+        android:title="Acerca de" />
+
     <item
         android:id="@+id/logOut"
         android:title="@string/log_out" />

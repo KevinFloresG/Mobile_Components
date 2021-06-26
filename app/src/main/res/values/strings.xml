@@ -19,4 +19,7 @@
     <string name="tel_fono">Teléfono:</string>
     <string name="products">Productos</string>
     <string name="ventas_de_garage">Ventas de Garage</string>
+    <string name="about">Ventas de Garage JK es una aplicación móvil desarrollada
+    con el objetivo de poner en práctica distintos componentes móviles y llegar a facilitar el proceso de venta
+    de ciertos objetos disponibles en ventas de garage. En el video se encuentran tips útiles para ventas de garage.</string>
 </resources>
